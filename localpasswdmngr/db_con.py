@@ -77,7 +77,7 @@ def get_server_data(cur, con):
     return data
 
 # its supposed to be main 
-def main():
+def main(user: str | bytes , password: str | bytes):
 
     key = get_key()
     # get base64_codelike key from /home/kali/chaves.txt 
@@ -87,11 +87,12 @@ def main():
         show_the_magik(cur, con, key)
         con.close()
         return 0
-
+    en1 = encry_(key, user)
     # change this to a api-rest socket side
-    en1  = encry_(key, input("digite seu usuario: \ntype username: "))
+    #en1  = encry_(key, input("digite seu usuario: \ntype username: "))
     # change this to a api-rest socket side
-    en2  = encry_(key, input("digite sua senha: \ntype password: "))
+    en2 = encry_(key, password)
+    #en2  = encry_(key, input("digite sua senha: \ntype password: "))
     
     print("phrase 01: lenght ===", len(en1),"b","\n","phrase 02: lenght ===", len(en2), "b")
     cur, con = conexao()
@@ -123,7 +124,8 @@ def show_the_magik(cur, con, key):
 #exec_query(cur, f"insert into users(id, name, pasw) values(0, \"{en1.decode()}\", \"{en2.decode()}\")")
 
 if __name__ == "__main__":
-    app = main()
+    app = main(user = input(">>"),
+     password = input(">>"))
 
 
 
